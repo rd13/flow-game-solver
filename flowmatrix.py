@@ -1,7 +1,15 @@
+from flowimage import FlowImage
+
 class FlowMatrix:
 
-    def __init__(self, gridsize, colours):
-        self.constructMatrix(gridsize, colours)
+    def __init__(self, img):
+
+        self.flow = FlowImage(img)
+
+        self.gridsize = self.flow.gridsize
+        self.colours = self.flow.colours
+
+        self.constructMatrix(self.gridsize, self.colours)
 
     def constructMatrix(self, gridsize, colours):
 
@@ -12,6 +20,9 @@ class FlowMatrix:
             matrix[c2[0]][c2[1]] = 1
             
         self.matrix = matrix
+
+    def toggleCell(self, matrix, cell):
+        matrix[cell[0]][cell[1]] = 1 if matrix[cell[0]][cell[1]] == False else 0
 
     def printMatrix(self):
         for i1, row in enumerate(self.matrix):
