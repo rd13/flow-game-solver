@@ -1,4 +1,3 @@
-# Abstract ALL the things
 from flowmatrix import FlowMatrix
 from cell import Cell
 import copy
@@ -16,6 +15,43 @@ class Flow:
         self.solve()
 
     def solve(self):
+
+        def solveGrid(solutions, grid_size):
+            
+            output = []
+            max = len(solutions)-1
+
+            def cartesian(arr, i):
+                
+                for solution in solutions[i]:
+
+                    a = arr[:]
+                    a.append(solution)
+
+                    if i == max:
+                        # Certesian Product found
+                        if checkSolution(a, grid_size):
+                            output.append(a)
+                            return
+                    else:
+                        # Recurse
+                        cartesian(a, i+1)
+
+            def checkSolution(solutions, grid_size):
+
+                # Flatten list of solutions
+                b = sum(solutions,[])
+
+                # Solution must fill entire grid
+                if len(b) != (grid_size * grid_size):
+                    return False
+
+                # Solution must not overlap another grid cell
+                return (len(b) - len(set(b))) == 0
+
+            cartesian([],0)
+            
+            return output
 
         def search(maze, x, y):
 
@@ -65,7 +101,6 @@ class Flow:
 
         def findPaths(maze, start, end):
 
-
             result = []
             if start.row < 0 or start.col < 0:
                 return False
@@ -106,6 +141,8 @@ class Flow:
             
             return result
 
+        fortest = []
+
         for i, (co) in enumerate(self.matrix.colours):
             
             for cell in co:
@@ -117,19 +154,14 @@ class Flow:
             paths = findPaths(self.matrix.matrix, Cell(co[0]), Cell(co[1]))
 
             if paths:
-                print paths
+                fortest.append(filter(None, paths))
             
             for cell in co:
                 self.matrix.toggleCell(self.matrix.matrix, cell)
 
-
-    class Thread:
-        def add(self):
-            pass
-        def start(self):
-            pass
-        def join(self):
-            pass
+        print solveGrid(fortest, self.matrix.gridsize)
 
 
-a = Flow('flow6x6.png')
+
+
+a = Flow('flow5x5.jpg')
