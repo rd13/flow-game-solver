@@ -1,7 +1,7 @@
 Flow Game Solver in Python
 ================
 
-Attempts to generate a solution of the popular iOS and Android game Flow:
+Attempts to generate a solution for the popular iOS and Android game Flow (traditionally known as number link) given an image of the unsolved Flow grid:
 
 ![Flow](https://raw.githubusercontent.com/rd13/flow-game-solver/master/flow6x6.png "Flow")
 
@@ -34,7 +34,7 @@ And detect the circles and their grid references:
 ]
 ```
 
-Running the solve method gives us a solution which is the path (grid references) each colour must then take:
+Running the solve method gives us a solution which is the path (grid references) each colour must then take to solve the puzzle:
 
 ```sh
 [
